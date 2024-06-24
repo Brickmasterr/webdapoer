@@ -22,7 +22,9 @@
         }
       } else {
         //for other url
-        if (element.attr('href').indexOf(current) !== -1) {
+        console.log(element.attr('href'), current, element.attr('href').split('/').filter((x) => x != ''));
+        const test = element.attr('href').split('/').filter((x) => x != '');
+        if (element.attr('href').indexOf(current) !== -1 && test[test.length-1] == current) {
           element.parents('.nav-item').last().addClass('active');
           if (element.parents('.sub-menu').length) {
             element.closest('.collapse').addClass('show');
