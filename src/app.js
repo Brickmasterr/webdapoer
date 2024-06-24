@@ -86,7 +86,17 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
     } else return next();
 }, (req, res) => {
     // res.sendFile(join(__dirname, 'index.html'));
-    res.render('index', {
+    res.render('dashboard/index', {
+        songs: null
+    });
+});
+app.get('/dashboard/addproduct', ensureLoggedIn, (req, res, next) => {
+    if (req.isAuthenticated()) {
+        ensurePassword(req, res, next)
+    } else return next();
+}, (req, res) => {
+    // res.sendFile(join(__dirname, 'index.html'));
+    res.render('dashboard/addproduct', {
         songs: null
     });
 });
