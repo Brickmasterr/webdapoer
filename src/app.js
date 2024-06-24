@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
-const { join } = require('node:path');
+const { join, extname } = require('node:path');
+const multer = require('multer');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,8 +17,27 @@ const connection = mysql_connection;
 const passport = require('./middleware/passport/main')(connection);
 const CookieUtil = require('./handler/util/CookieUtil');
 
-
 require('./handler/util/Functions');
+
+
+const ensurePassword = UtilFunctions.ensurePassword;
+const GenerateUserId = UtilFunctions.GenerateUserId;
+
+// Set storage engine for multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log('test upload 1');
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        console.log('test upload 2');
+        // console.log(req.user);
+        cb(null, GenerateUserId(10) + extname(file.originalname));
+    }
+});
+
+// Create multer instance with the storage configuration
+const uploadMulter = multer({ storage: storage });
 
 // Custom middleware to ensure user is logged out
 const ensureLoggedOut = function (req, res, next) {
@@ -52,8 +72,6 @@ const ensureLoggedIn = async function (req, res, next) {
     }
 }
 
-const ensurePassword = UtilFunctions.ensurePassword;
-
 // Cokie parser middleware
 app.use(cookieParser());
 
@@ -70,6 +88,8 @@ app.use(session({
 // Serve static files from the "public" directories
 app.set('views', join(__dirname, 'views'));
 app.use(express.static(join(__dirname, 'public')));
+// Serve uploaded files statically
+app.use('/uploads', express.static(join(__dirname, '../uploads')));
 
 // view engine setup
 app.set('view engine', 'ejs');
@@ -85,10 +105,17 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
         ensurePassword(req, res, next)
     } else return next();
 }, (req, res) => {
-    // res.sendFile(join(__dirname, 'index.html'));
-    res.render('dashboard/index', {
-        songs: null
+
+    const SelectProductQuery = `SELECT * FROM Product`;
+    connection.query(SelectProductQuery, (err, rows) => {
+        console.log(rows);
+        // res.sendFile(join(__dirname, 'index.html'));
+        res.render('dashboard/index', {
+            songs: null,
+            PRODUCTS: rows
+        });
     });
+
 });
 app.get('/dashboard/addproduct', ensureLoggedIn, (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -99,6 +126,66 @@ app.get('/dashboard/addproduct', ensureLoggedIn, (req, res, next) => {
     res.render('dashboard/addproduct', {
         songs: null
     });
+});
+
+app.post(
+    '/dashboard/addproduct',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to add product`,
+                success: false,
+                error: "You must logged in to add product"
+            });
+            return
+        }
+
+        const { productName, productDescription, productPrice, productImage, productImageHidden } = req.body
+
+        let ProductDetail = {
+            productId: GenerateUserId(5),
+            title: productName,
+            description: productDescription,
+            image: productImageHidden ?? productImage,
+            price: parseInt(productPrice),
+            show: 1
+        }
+
+        console.log(req.body);
+
+        const InsertProductQuery = `INSERT INTO Product SET ?`;
+        connection.query(InsertProductQuery, ProductDetail, (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
+// POST request to handle the profile picture upload
+app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
+    if (req.file) {
+        // res.status(200).send('File uploaded successfully');
+    } else {
+        res.status(400).send('Error uploading file');
+        return
+    }
+    // Handle the uploaded file and update the user's profile picture
+    const ProductPicture = req.file;
+
+    // Update the user's profile picture in the database or any other logic
+    console.log('Product picture uploaded:', ProductPicture.filename);
+
+    // res.redirect('/dashboard/profile');
+    // Send the profile picture URL back as a JSON response
+    res.json({ ProductPicture: `/uploads/${ProductPicture.filename}` });
 });
 
 app.get('/pages/*', (req, res, next) => {
