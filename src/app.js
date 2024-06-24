@@ -106,11 +106,15 @@ app.get('/pages/*', (req, res, next) => {
         ensurePassword(req, res, next)
     } else return next();
 }, (req, res) => {
-    console.log(req);
+    console.log(req.params[0]);
     // res.sendFile(join(__dirname, 'index.html'));
-    res.render('index', {
-        songs: null
-    });
+    if (req.params[0].includes('.html')) {
+        res.sendFile(join(__dirname, `views/pages/${req.params[0]}`))
+    } else {
+        res.render(`pages/${req.params[0]}`, {
+            songs: null
+        });
+    }
 });
 
 app.get('/login', (req, res) => {
