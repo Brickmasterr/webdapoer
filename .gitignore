@@ -16,3 +16,4 @@ node_modules/
 *.gz
 package-lock.json
 server-logs/*.json
+uploads/*.*
