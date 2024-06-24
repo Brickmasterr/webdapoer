@@ -49,7 +49,7 @@
                       <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Products</a>
                     </div>
                     <div class="table-responsive border rounded p-1">
-                      <table class="table">
+                      <table class="table" id="product-list">
                         <thead>
                           <tr>
                             <th class="font-weight-bold">ID</th>
@@ -61,18 +61,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="assets/images/faces/face1.jpg" alt="profile image"> Katie Holmes
-                            </td>
-                            <td>$3621</td>
-                            <td><img src="assets/images/dashboard/alipay.png" alt="alipay" class="gateway-icon me-2"> alipay</td>
-                            <td>04 Jun 2019</td>
-                            <td>18 Jul 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
-                          </tr>
+                          <%-
+                            PRODUCTS.map((product, index) => {
+                              return `
+                              <tr>
+                                <td>
+                                  <img class="img-sm rounded-circle" src="assets/images/faces/face2.jpg" alt="profile image"> ${product.productId}
+                                </td>
+                                <td>${product.title}</td>
+                                <td>${product.price}</td>
+                                <td class="text-wrap">${product.description}</td>
+                                <td><img src="${product.image}" alt="profile image"></td>
+                                <td>
+                                  <div class="badge badge-danger p-2">Pending</div>
+                                </td>
+                              </tr>
+                              `
+                            }).join('')
+                          %>
                           <tr>
                             <td>
                               <img class="img-sm rounded-circle" src="assets/images/faces/face2.jpg" alt="profile image"> Minnie Copeland
@@ -83,30 +89,6 @@
                             <td>07 Oct 2019</td>
                             <td>
                               <div class="badge badge-danger p-2">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="assets/images/faces/face3.jpg" alt="profile image"> Rodney Sims
-                            </td>
-                            <td>$9265</td>
-                            <td><img src="assets/images/dashboard/alipay.png" alt="alipay" class="gateway-icon me-2"> alipay</td>
-                            <td>12 dec 2019</td>
-                            <td>26 Aug 2019</td>
-                            <td>
-                              <div class="badge badge-warning p-2">Failed</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="assets/images/faces/face4.jpg" alt="profile image"> Carolyn Barker
-                            </td>
-                            <td>$2263</td>
-                            <td><img src="assets/images/dashboard/alipay.png" alt="alipay" class="gateway-icon me-2"> alipay</td>
-                            <td>30 Sep 2019</td>
-                            <td>20 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
                             </td>
                           </tr>
                         </tbody>
