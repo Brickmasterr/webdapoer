@@ -89,7 +89,7 @@ app.use(session({
 app.set('views', join(__dirname, 'views'));
 app.use(express.static(join(__dirname, 'public')));
 // Serve uploaded files statically
-app.use('/uploads', express.static(join(__dirname, '../uploads')));
+app.use('/photoProducts', express.static(join(__dirname, '../photoProducts')));
 
 // view engine setup
 app.set('view engine', 'ejs');
