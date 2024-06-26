@@ -237,7 +237,38 @@ app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) =>
 
     // res.redirect('/dashboard/profile');
     // Send the profile picture URL back as a JSON response
-    res.json({ ProductPicture: `/uploads/${ProductPicture.filename}` });
+    res.json({ ProductPicture: `/photoProducts/${ProductPicture.filename}` });
+});
+
+app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
+    const ProductId = req.params.id;
+    if (!ProductId) {
+        res.status(404);
+        res.sendFile(join(__dirname, `views/pages/error-404.html`));
+        return;
+    }
+
+    const SelectProductQuery = `SELECT * FROM Product WHERE productId = ?`
+    connection.query(SelectProductQuery, ProductId, (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(404);
+            res.sendFile(join(__dirname, `views/pages/error-404.html`));
+        } else {
+            res.status(200);
+            res.render('dashboard/product', {
+                ProductData: rows[0]
+            });
+        }
+    });
+    // res.sendFile(join(__dirname, 'index.html'));
+    // if (req.params[0].includes('.html')) {
+    //     res.sendFile(join(__dirname, `views/pages/${req.params[0]}`))
+    // } else {
+    //     res.render(`pages/${req.params[0]}`, {
+    //         songs: null
+    //     });
+    // }
 });
 
 app.get('/pages/*', (req, res, next) => {
