@@ -16,6 +16,6 @@ node_modules/
 *.gz
 package-lock.json
 server-logs/*.json
-uploads/*.png
-uploads/*.jpg
-uploads/*.jpeg
+photoProducts/*.png
+photoProducts/*.jpg
+photoProducts/*.jpeg
