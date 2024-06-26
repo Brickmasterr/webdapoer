@@ -221,6 +221,47 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/deleteproduct',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to delete product`,
+                success: false,
+                error: "You must logged in to delete product"
+            });
+            return
+        }
+
+        const ProductId = req.query.productId;
+        if (!ProductId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `The product id doesn't exist`,
+                success: false,
+                error: "The product id doesn't exist"
+            });
+            return
+        }
+
+
+        const InsertProductQuery = `DELETE FROM Product WHERE productId = ?`;
+        connection.query(InsertProductQuery, [ProductId], (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
