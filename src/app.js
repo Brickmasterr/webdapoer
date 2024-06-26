@@ -169,6 +169,58 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/updateproduct',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to edit product`,
+                success: false,
+                error: "You must logged in to edit product"
+            });
+            return
+        }
+
+        const ProductId = req.query.productId;
+        if (!ProductId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to edit product`,
+                success: false,
+                error: "You must logged in to edit product"
+            });
+            return
+        }
+
+        const { productName, productDescription, productPrice, productImage, productImageHidden } = req.body
+
+        let ProductDetail = {
+            title: productName,
+            description: productDescription,
+            image: productImageHidden ?? productImage,
+            price: parseInt(productPrice),
+            show: 1
+        }
+
+        console.log(req.body);
+
+        const InsertProductQuery = `UPDATE Product SET ? WHERE productId = ?`;
+        connection.query(InsertProductQuery, [ProductDetail, ProductId], (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
