@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
         cb(null, 'photoProducts/');
     },
     filename: function (req, file, cb) {
-        console.log('test upload 2');
+        // console.log('test upload 2');
         // console.log(req.user);
         cb(null, GenerateUserId(10) + extname(file.originalname));
     }
