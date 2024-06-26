@@ -571,5 +571,22 @@
     <script src="assets/js/file-upload.js"></script>
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <!-- End custom js for this page -->
+     <script>
+        // let table = new DataTable('#product-list');
+        $('#product-list').DataTable({
+          "autoWidth": true,  // Disable automatic column width calculation
+          "aLengthMenu": [
+            [5, 10, 15, -1],
+            [5, 10, 15, "All"]
+          ],
+          "iDisplayLength": 5,
+          "language": {
+            search: ""
+          },
+          "columnDefs": [
+                { "width": "60%", "targets": 3 },
+            ]
+        });
+     </script>
   </body>
 </html>
