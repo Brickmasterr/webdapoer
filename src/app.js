@@ -26,8 +26,8 @@ const GenerateUserId = UtilFunctions.GenerateUserId;
 // Set storage engine for multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log('test upload 1');
-        cb(null, 'uploads/');
+        // console.log('test upload 1');
+        cb(null, 'photoProducts/');
     },
     filename: function (req, file, cb) {
         console.log('test upload 2');
