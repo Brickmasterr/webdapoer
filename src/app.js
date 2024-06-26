@@ -261,14 +261,6 @@ app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
             });
         }
     });
-    // res.sendFile(join(__dirname, 'index.html'));
-    // if (req.params[0].includes('.html')) {
-    //     res.sendFile(join(__dirname, `views/pages/${req.params[0]}`))
-    // } else {
-    //     res.render(`pages/${req.params[0]}`, {
-    //         songs: null
-    //     });
-    // }
 });
 
 app.get('/pages/*', (req, res, next) => {
