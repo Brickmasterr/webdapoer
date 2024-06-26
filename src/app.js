@@ -188,9 +188,9 @@ app.post(
             res.status(400);
             res.json({
                 status: 400,
-                message: `You must logged in to edit product`,
+                message: `The product id doesn't exist`,
                 success: false,
-                error: "You must logged in to edit product"
+                error: "The product id doesn't exist"
             });
             return
         }
