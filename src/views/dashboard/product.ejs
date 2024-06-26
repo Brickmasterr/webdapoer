@@ -1,0 +1,207 @@
+<!DOCTYPE html>basic_elem <html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Stellar Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="/assets/vendors/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="/assets/vendors/flag-icon-css/css/flag-icons.min.css">
+  <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="/assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="/assets/css/vertical-light-layout/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="/assets/images/favicon.png" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <%- include('../block/navbar.ejs') %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <%- include('../block/sidebar.ejs') %>
+          <!-- partial -->
+          <div class="main-panel">
+            <div class="content-wrapper">
+              <div class="page-header">
+                <h3 class="page-title"> Form elements </h3>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                  </ol>
+                </nav>
+              </div>
+              <div class="row">
+                <div id="data-product" data-productData='<%- ProductData ? JSON.stringify(ProductData) : {} %>'></div>
+                <div class="col-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Basic form elements</h4>
+                      <p class="card-description"> Basic form elements </p>
+                      <form id="productForm" action="/dashboard/updateproduct" method="POST">
+                        <div class="form-group">
+                          <label for="product-name" class="col-form-label">Product Name:</label>
+                          <input type="text" name="productName" class="form-control" id="product-name">
+                          <label for="description" class="col-form-label">Description:</label>
+                          <textarea class="form-control" name="productDescription" id="description"></textarea>
+                          <label for="price" class="col-form-label">Price:</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text bg-primary text-white">Rp.</span>
+                            </div>
+                            <input type="number" name="productPrice" class="form-control"
+                              aria-label="amount (to the nearest dollar)" id="price">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>File upload</label>
+                          <input type="file" id="file-upload" name="productImage" class="file-upload-default"
+                            accept="image/*">
+                          <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" disabled
+                              placeholder="Upload Image" id="productImage">
+                            <span class="input-group-append">
+                              <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <h4 class="card-title">Current Photo Product</h4>
+                          <img src="//placehold.it/100" id="photoProductView"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button class="btn btn-light">Cancel</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:/partials/_footer.html -->
+            <footer class="footer">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 Stellar.
+                  All
+                  rights reserved. <a href="#"> Terms of use</a><a href="#">Privacy Policy</a></span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                    class="icon-heart text-danger"></i></span>
+              </div>
+            </footer>
+            <!-- partial -->
+          </div>
+          <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="/assets/vendors/select2/select2.min.js"></script>
+  <script src="/assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="/assets/js/off-canvas.js"></script>
+  <script src="/assets/js/hoverable-collapse.js"></script>
+  <script src="/assets/js/misc.js"></script>
+  <script src="/assets/js/settings.js"></script>
+  <script src="/assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="/assets/js/file-upload.js"></script>
+  <script src="/assets/js/typeahead.js"></script>
+  <script src="/assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+  <script>
+    let ProductData = document.getElementById("data-product");
+    // console.log(ProductData.dataset.productdata, typeof(ProductData.dataset.productdata));
+    ProductData = JSON.parse(ProductData.dataset.productdata);
+
+    const ProductForm = document.getElementById("productForm");
+    const ProductName = document.getElementById("product-name");
+    const ProductDescription = document.getElementById("description");
+    const ProductPrice = document.getElementById("price");
+    const ProductPhoto = document.getElementById("productImage");
+    const ProductPhotoView = document.getElementById("photoProductView");
+
+    ProductForm.action = `/dashboard/updateproduct?productId=${ProductData.productId}`
+    ProductName.value = ProductData.title;
+    ProductDescription.value = ProductData.description;
+    ProductPrice.value = ProductData.price;
+    ProductPhoto.value = ProductData.image;
+    ProductPhotoView.src = ProductData.image;
+  </script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.getElementById('file-upload');
+        const formData = new FormData();
+        // Add an event listener to trigger the file upload when a file is selected
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            console.log(file);
+            formData.append('productImage', file);
+        });
+
+        var form = document.getElementById('productForm');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Mencegah pengiriman form default
+            testUpload(); // Panggil fungsi yang diinginkan
+            console.log('test', fileInput.value);
+
+            // Setelah testUpload dijalankan, jika Anda ingin melanjutkan pengiriman form:
+            // form.submit();
+        });
+
+        const handleResponse = (data) => {
+            console.log(fileInput.value);
+            if (data.ProductPicture) {
+                console.log(data.ProductPicture);
+                // fileInput.accept = '*'
+                // fileInput.value = data.ProductPicture;
+                // Asumsikan response berisi nama file atau path file yang diunggah
+                let hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'productImageHidden';
+                hiddenInput.value = data.ProductPicture; // Atau URL dari file yang diunggah
+
+                // Tambahkan input tersembunyi ke form
+                form.appendChild(hiddenInput);
+                console.log(fileInput.value);
+                // Update the profile picture URL and set it as the src attribute of the image element
+                // profilePicture.src = data.profilePictureUrl;
+            }
+            // Setelah testUpload dijalankan, jika Anda ingin melanjutkan pengiriman form:
+            form.submit();
+        };
+
+        function testUpload() {
+            // Make a POST request to upload the file
+            fetch('/dashboard/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(handleResponse)
+                .catch(error => console.error('Error:', error));
+        }
+    });
+
+</script>
+</body>
+
+</html>
