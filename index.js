@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 require('events').EventEmitter.defaultMaxListeners = 1000;
 
 const config = require('./src/config');
