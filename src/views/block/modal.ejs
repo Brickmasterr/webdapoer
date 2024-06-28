@@ -55,7 +55,27 @@
 </div>
 
 <script>
-
+    function Confirmation(cb, preConfirmFunction) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showLoaderOnConfirm: true,
+        showCancelButton: true,
+        customClass: {
+            confirmButton: 'btn btn-primary btn-lg mr-2',
+            cancelButton: 'btn btn-danger btn-lg',
+            loader: 'custom-loader',
+        },
+        preConfirm: preConfirmFunction,
+        allowOutsideClick: () => !Swal.isLoading(),
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm"
+      }).then((result) => {
+        cb(result);
+      });
+    }
     document.addEventListener('DOMContentLoaded', function () {
         const ProductPhotoView = document.getElementById("photoProductView");
         const fileInput = document.getElementById('file-upload');
