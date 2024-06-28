@@ -1,10 +1,11 @@
 require('./handler/util/Logger');
 // console.log('test 1');
+const WEB_PORT = process.env.port ?? 3000;
 const app = require('./app');
 // console.log('test 2');
 
-const expServer = app.server.listen(process.env.port, () => {
-    console.log(`server running at http://localhost:${process.env.port}`);
+const expServer = app.server.listen(WEB_PORT, () => {
+    console.log(`server running at http://localhost:${WEB_PORT}`);
 });
 
 // add graceful shutdown.
