@@ -99,15 +99,38 @@
             form.submit();
         };
 
-        function testUpload() {
-            // Make a POST request to upload the file
-            fetch('/dashboard/upload', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(handleResponse)
-                .catch(error => console.error('Error:', error));
+        // function testUpload() {
+        //     // Make a POST request to upload the file
+        //     fetch('/dashboard/upload', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //         .then(response => response.json())
+        //         .then(handleResponse)
+        //         .catch(error => console.error('Error:', error));
+        // }
+        async function testUpload(theData) {
+            // Check if formData has a file
+            if (!theData.has('productImage')) {
+                throw new Error('File Upload must contain a file');
+            }
+
+            try {
+                const response = await fetch('/dashboard/upload', {
+                    method: 'POST',
+                    body: theData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Re-throw the error to propagate it further if needed
+            }
         }
     });
 
