@@ -53,7 +53,7 @@ const exportDatabase = async (config, filePath, exportType, minify = false) => {
 const dbConfig = {
     connectionLimit: 10,
     port: process.env.dbConfig_port,
-    host: '127.0.0.1',
+    host: process.env.dbConfig_host,
     user: process.env.dbConfig_user,
     password: process.env.dbConfig_password,
     database: 'webdapoer'
