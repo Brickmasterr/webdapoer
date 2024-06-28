@@ -57,12 +57,20 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
+        const ProductPhotoView = document.getElementById("photoProductView");
         const fileInput = document.getElementById('file-upload');
         const formData = new FormData();
         // Add an event listener to trigger the file upload when a file is selected
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
-            console.log(file);
+            // console.log(file);
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#photoProductView').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
             formData.append('productImage', file);
         });
 
