@@ -126,17 +126,15 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
         ensurePassword(req, res, next)
     } else return next();
 }, (req, res) => {
-
     const SelectProductQuery = `SELECT * FROM Product`;
     connection.query(SelectProductQuery, (err, rows) => {
         const TheData = rows.map((x) => {
             x.description = textToHtml(x.description);
             return x;
         });
-        console.log(TheData);
-        // res.sendFile(join(__dirname, 'index.html'));
+
         res.render('dashboard/index', {
-            songs: null,
+            user: req.user,
             PRODUCTS: TheData
         });
     });
