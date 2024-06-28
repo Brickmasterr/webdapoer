@@ -121,9 +121,14 @@
                                 <td class="text-wrap">${product.description}</td>
                                 <td><img style="border-radius: 0;" src="${product.image}" alt="product image"></td>
                                 <td>
-                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${product.productId}')">Danger <i class="fa fa-trash-o btn-icon-append"></i>
+                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${product.productId}')"
+                                    style="width: 100px;">
+                                     Danger <i class="fa fa-trash-o btn-icon-append"></i>
                                   </button>
-                                  <button type="button" class="btn btn-dark btn-icon-text btn-sm" onclick="location.href='/dashboard/product/${product.productId}'"> Edit <i class="fa fa-edit btn-icon-append"></i>
+                                  <br>
+                                  <button type="button" class="btn btn-dark btn-icon-text btn-sm" onclick="location.href='/dashboard/product/${product.productId}'"
+                                    style="width: 100px; margin-top: 5px;">
+                                     Edit <i class="fa fa-edit btn-icon-append"></i>
                                   </button>
                                 </td>
                               </tr>
