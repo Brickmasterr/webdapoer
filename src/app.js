@@ -147,7 +147,7 @@ app.get('/dashboard/addproduct', ensureLoggedIn, (req, res, next) => {
 }, (req, res) => {
     // res.sendFile(join(__dirname, 'index.html'));
     res.render('dashboard/addproduct', {
-        songs: null
+        user: req.user,
     });
 });
 
@@ -343,6 +343,7 @@ app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
         } else {
             res.status(200);
             res.render('dashboard/product', {
+                user: req.user,
                 ProductData: rows[0]
             });
         }
@@ -360,7 +361,7 @@ app.get('/pages/*', (req, res, next) => {
         res.sendFile(join(__dirname, `views/pages/${req.params[0]}`))
     } else {
         res.render(`pages/${req.params[0]}`, {
-            songs: null
+            user: req.user,
         });
     }
 });
