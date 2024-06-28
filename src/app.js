@@ -222,12 +222,17 @@ app.post(
 
         const { productName, productDescription, productPrice, productImage, productImageHidden } = req.body
 
+        console.log('THE PRODUCT IMAGE!', productImageHidden, productImage);
+
         let ProductDetail = {
             title: productName,
             description: productDescription,
-            image: productImageHidden ?? productImage,
             price: parseInt(productPrice),
             show: 1
+        }
+
+        if (productImageHidden || productImage) {
+            ProductDetail.image = productImageHidden ?? productImage;
         }
 
         console.log(req.body);
