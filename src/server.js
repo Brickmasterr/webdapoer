@@ -3,8 +3,8 @@ require('./handler/util/Logger');
 const app = require('./app');
 // console.log('test 2');
 
-const expServer = app.server.listen(3002, () => {
-    console.log('server running at http://localhost:3002');
+const expServer = app.server.listen(process.env.port, () => {
+    console.log(`server running at http://localhost:${process.env.port}`);
 });
 
 // add graceful shutdown.
