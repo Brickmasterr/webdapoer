@@ -100,6 +100,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+const textToHtml = (text) => {
+    // Escape HTML characters to prevent XSS
+    const escapeHtml = (unsafe) => {
+      return unsafe
+        // .replace(/&/g, "&amp;")
+        // .replace(/</g, "&lt;")
+        // .replace(/>/g, "&gt;")
+        // .replace(/"/g, "&quot;")
+        // .replace(/'/g, "&#039;");
+    };
+
+    // Escape the text
+    const escapedText = escapeHtml(text);
+
+    // Replace different types of line breaks with <br>
+    const html = escapedText.replace(/(\r\n|\n|\r)/g, '<br>');
+
+    // Wrap the entire text in <p> tags
+    return `<p>${html}</p>`;
+  };
+
 app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
     if (req.isAuthenticated()) {
         ensurePassword(req, res, next)
@@ -108,11 +129,15 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
 
     const SelectProductQuery = `SELECT * FROM Product`;
     connection.query(SelectProductQuery, (err, rows) => {
-        console.log(rows);
+        const TheData = rows.map((x) => {
+            x.description = textToHtml(x.description);
+            return x;
+        });
+        console.log(TheData);
         // res.sendFile(join(__dirname, 'index.html'));
         res.render('dashboard/index', {
             songs: null,
-            PRODUCTS: rows
+            PRODUCTS: TheData
         });
     });
 
