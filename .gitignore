@@ -17,6 +17,7 @@ node_modules/
 .env
 package-lock.json
 server-logs/*.json
+photoProducts/*.gif
 photoProducts/*.png
 photoProducts/*.jpg
 photoProducts/*.jpeg
