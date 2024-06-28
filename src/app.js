@@ -279,9 +279,26 @@ app.post(
                 console.error(err);
                 res.status(500);
                 // res.redirect('/dashboard');
+                if (req.body) {
+                    res.json({
+                        status: 500,
+                        message: `Product with ID = ${ProductId} failed to delete`,
+                        success: false,
+                        error: true
+                    })
+                }
             } else {
                 res.status(200);
-                res.redirect('/dashboard');
+                if (!req.body) {
+                    res.redirect('/dashboard');
+                } else {
+                    res.json({
+                        status: 200,
+                        message: `Product with ID = ${ProductId} has been deleted`,
+                        success: true,
+                        error: false
+                    })
+                }
             }
         });
     }
