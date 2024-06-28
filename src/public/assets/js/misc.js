@@ -22,7 +22,7 @@
         }
       } else {
         //for other url
-        console.log(element.attr('href'), current, element.attr('href').split('/').filter((x) => x != ''));
+        // console.log(element.attr('href'), current, element.attr('href').split('/').filter((x) => x != ''));
         const test = element.attr('href').split('/').filter((x) => x != '');
         if (element.attr('href').indexOf(current) !== -1 && test[test.length-1] == current) {
           element.parents('.nav-item').last().addClass('active');
