@@ -14,6 +14,7 @@ node_modules/
 
 *.log
 *.gz
+.env
 package-lock.json
 server-logs/*.json
 photoProducts/*.png
