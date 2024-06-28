@@ -98,8 +98,24 @@
 
         form.addEventListener('submit', function (event) {
             event.preventDefault(); // Mencegah pengiriman form default
-            testUpload(); // Panggil fungsi yang diinginkan
-            console.log('test', fileInput.value);
+            Confirmation((result) => {
+                if (result.isConfirmed) {
+                    // console.log(result);
+                    // testUpload(); // Panggil fungsi yang diinginkan
+                    // console.log('test', fileInput.value);
+                    handleResponse(result.value);
+                }
+            }, async function() {
+                try {
+                    const ttest = await testUpload(formData);
+                    return ttest
+                } catch (error) {
+                    Swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                }
+                // OutputFromTestUpload = ttest;
+            })
 
             // Setelah testUpload dijalankan, jika Anda ingin melanjutkan pengiriman form:
             // form.submit();
