@@ -346,6 +346,21 @@ app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) =>
     res.json({ ProductPicture: `/photoProducts/${ProductPicture.filename}` });
 });
 
+app.get('/dashboard/product', ensureLoggedIn, (req, res) => {
+    const SelectProductQuery = `SELECT * FROM Product`;
+    connection.query(SelectProductQuery, (err, rows) => {
+        const TheData = rows.map((x) => {
+            x.description = textToHtml(x.description);
+            return x;
+        });
+
+        res.render('dashboard/productList', {
+            user: req.user,
+            PRODUCTS: TheData
+        });
+    });
+});
+
 app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
     const ProductId = req.params.id;
     if (!ProductId) {
