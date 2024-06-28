@@ -1,6 +1,6 @@
 require('./handler/util/Logger');
 // console.log('test 1');
-const WEB_PORT = process.env.port ?? 3000;
+const WEB_PORT = Number(process.env.port ?? 3000);
 const app = require('./app');
 // console.log('test 2');
 
