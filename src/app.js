@@ -100,6 +100,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+function safeHtml(text) {
+    // Escape HTML characters to prevent XSS
+    const escapeHtml = (unsafe) => {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    };
+
+    // Escape the text
+    const escapedText = escapeHtml(text);
+
+    // Replace newlines with <br> tags
+    const html = escapedText.replace(/\n/g, '<br>');
+
+    return html;
+}
+
 const textToHtml = (text) => {
     // Escape HTML characters to prevent XSS
     const escapeHtml = (unsafe) => {
@@ -119,7 +139,7 @@ const textToHtml = (text) => {
 
     // Wrap the entire text in <p> tags
     return `<p>${html}</p>`;
-  };
+};
 
 app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
     if (req.isAuthenticated()) {
