@@ -361,10 +361,14 @@ app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
             res.status(404);
             res.sendFile(join(__dirname, `views/pages/error-404.html`));
         } else {
+            const TheData = rows.map((x) => {
+                x.description = safeHtml(x.description);
+                return x
+            })
             res.status(200);
             res.render('dashboard/product', {
                 user: req.user,
-                ProductData: rows[0]
+                ProductData: TheData[0]
             });
         }
     });
