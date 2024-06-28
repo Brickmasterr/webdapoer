@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 require('events').EventEmitter.defaultMaxListeners = 1000;
 
 const config = require('./src/config');
@@ -9,6 +9,7 @@ connection.connect(config.dbConfig, function() {
 
     require('./src/server');
 });
+
 
 process.on('unhandledRejection', e => console.error(e))
     .on('uncaughtException', e => console.error(e));
