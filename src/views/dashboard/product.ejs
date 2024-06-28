@@ -148,12 +148,29 @@
     ProductPhotoView.src = ProductData.image;
   </script>
   <script>
+    function Confirmation(cb) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it?"
+      }).then((result) => {
+        cb(result.isConfirmed);
+      });
+    }
+    function SuccessNotif(cb) {
 
+    }
     document.addEventListener('DOMContentLoaded', function () {
+        let imageChanged = false;
         const fileInput = document.getElementById('file-upload');
         const formData = new FormData();
         // Add an event listener to trigger the file upload when a file is selected
         fileInput.addEventListener('change', (event) => {
+          imageChanged = true;
             const file = event.target.files[0];
             console.log(file);
             formData.append('productImage', file);
