@@ -1,10 +1,10 @@
 module.exports = {
-    dbConfig: {
-      connectionLimit: 10,
-      port: 3306,
-      host: '127.0.0.1',
-      user: 'dwk',
-      password: 'p@Ssw0rd',
-      database: 'webdapoer'
-    }
+  dbConfig: {
+    connectionLimit: 10,
+    port: process.env.dbConfig_port,
+    host: process.env.dbConfig_host,
+    user: process.env.dbConfig_user,
+    password: process.env.dbConfig_password,
+    database: 'webdapoer'
   }
+}
