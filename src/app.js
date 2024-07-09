@@ -178,6 +178,19 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
             x.description = textToHtml(x.description);
             return x;
         });
+        const ReviewData = results[2].map((x) => {
+            let test = '';
+            let active  = 0;
+            let notActive = 0;
+            for (let index = 1; index <= 5; index++) {
+                test += `<i class='bx ${index <= x.rate ? 'bxs-star star active' : "bx-star star"}' style="--i: ${index - 1};"></i>`
+                if (index <= x.rate) active++
+                else notActive++
+            }
+            x.rating = textToHtml(test).replace('<p>', '').replace('</p>', '');
+            x.message = textToHtml(x.message);
+            return x;
+        });
 
         res.render('dashboard/index', {
             user: req.user,
