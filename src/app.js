@@ -194,9 +194,26 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
 
         res.render('dashboard/index', {
             user: req.user,
-            PRODUCTS: TheData
+            PRODUCTS: ProductsData,
+            LAYANAN: LayananData,
+            REVIEW: ReviewData
         });
-    });
+    })
+    .catch((err) => {
+        console.error(err);
+    })
+    // const SelectProductQuery = `SELECT * FROM Product`;
+    // connection.query(SelectProductQuery, (err, rows) => {
+    //     const TheData = rows.map((x) => {
+    //         x.description = textToHtml(x.description);
+    //         return x;
+    //     });
+
+    //     res.render('dashboard/index', {
+    //         user: req.user,
+    //         PRODUCTS: TheData
+    //     });
+    // });
 
 });
 app.get('/dashboard/addproduct', ensureLoggedIn, (req, res, next) => {
@@ -224,7 +241,7 @@ app.post(
             return
         }
 
-        const { productName, productDescription, productPrice, productImage, productImageHidden } = req.body
+        const { productName, productDescription, productPrice = 0, productImage, productImageHidden } = req.body
 
         let ProductDetail = {
             productId: GenerateUserId(5),
