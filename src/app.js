@@ -141,6 +141,14 @@ const textToHtml = (text) => {
     return `<p>${html}</p>`;
 };
 
+app.get('/', (req, res) => {
+    res.render('hero/index');
+})
+
+app.get('/menu', (req, res) => {
+    res.render('hero/index2');
+})
+
 app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
     if (req.isAuthenticated()) {
         ensurePassword(req, res, next)
