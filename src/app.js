@@ -190,7 +190,7 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
                 else notActive++
             }
             x.rating = textToHtml(test).replace('<p>', '').replace('</p>', '');
-            x.message = textToHtml(x.message);
+            x.message = textToHtml(x.message).replace('<p>', '').replace('</p>', '');
             return x;
         });
 
