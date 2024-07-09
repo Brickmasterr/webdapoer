@@ -383,6 +383,129 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/addlayanan',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to add layanan`,
+                success: false,
+                error: "You must logged in to add layanan"
+            });
+            return
+        }
+
+        const { productName, productDescription, layananImage, layananImageHidden } = req.body
+
+        let ProductDetail = {
+            layananId: GenerateUserId(5),
+            title: productName,
+            description: productDescription,
+            image: layananImageHidden ?? layananImage,
+            show: 1
+        }
+
+        console.log(ProductDetail, productName, productDescription, layananImage, layananImageHidden);
+
+        const InsertProductQuery = `INSERT INTO Layanan SET ?`;
+        connection.query(InsertProductQuery, ProductDetail, (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
+app.post(
+    '/dashboard/deletelayanan',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to delete product`,
+                success: false,
+                error: "You must logged in to delete product"
+            });
+            return
+        }
+
+        const LayananId = req.query.layananId;
+        if (!LayananId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `The layanan id doesn't exist`,
+                success: false,
+                error: "The layanan id doesn't exist"
+            });
+            return
+        }
+
+        const InsertProductQuery = `DELETE FROM Layanan WHERE layananId = ?`;
+        connection.query(InsertProductQuery, [LayananId], (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+                if (req.body) {
+                    res.json({
+                        status: 500,
+                        message: `Product with ID = ${LayananId} failed to delete`,
+                        success: false,
+                        error: true
+                    })
+                }
+            } else {
+                res.status(200);
+                if (!req.body) {
+                    res.redirect('/dashboard');
+                } else {
+                    res.json({
+                        status: 200,
+                        message: `LayananId with ID = ${LayananId} has been deleted`,
+                        success: true,
+                        error: false
+                    })
+                }
+            }
+        });
+    }
+);
+
+app.post(
+    '/api/addreview',
+    async (req, res) => {
+        const { rating, name, opinion } = req.body
+
+        let ProductDetail = {
+            reviewId: GenerateUserId(5),
+            name,
+            rate: parseInt(rating),
+            message: opinion
+        }
+
+        const InsertProductQuery = `INSERT INTO Review SET ?`;
+        connection.query(InsertProductQuery, ProductDetail, (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/');
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
