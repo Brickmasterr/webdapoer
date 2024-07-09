@@ -145,8 +145,9 @@ app.get('/', (req, res) => {
     res.render('hero/index');
 })
 
-app.get('/menu', (req, res) => {
-    res.render('hero/index2');
+app.get('/detail', (req, res) => {
+    if (!req.query?.menu) return res.redirect('/');
+    res.render(`hero/index${parseInt(req.query.menu) + 1}`);
 })
 
 app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
