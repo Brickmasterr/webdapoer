@@ -508,6 +508,64 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/deletereview',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to delete review`,
+                success: false,
+                error: "You must logged in to delete review"
+            });
+            return
+        }
+
+        const ReviewId = req.query.reviewId;
+
+        if (!ReviewId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `The review id doesn't exist`,
+                success: false,
+                error: "The review id doesn't exist"
+            });
+            return
+        }
+
+        const DeleteReviewQuery = `DELETE FROM Review WHERE reviewId = ?`;
+        connection.query(DeleteReviewQuery, ReviewId, (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+                if (req.body) {
+                    res.json({
+                        status: 500,
+                        message: `Review with ID = ${ReviewId} failed to delete`,
+                        success: false,
+                        error: true
+                    })
+                }
+            } else {
+                res.status(200);
+                if (!req.body) {
+                    res.redirect('/dashboard');
+                } else {
+                    res.json({
+                        status: 200,
+                        message: `Review with ID = ${ReviewId} has been deleted`,
+                        success: true,
+                        error: false
+                    })
+                }
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
