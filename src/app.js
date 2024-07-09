@@ -154,9 +154,27 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
         ensurePassword(req, res, next)
     } else return next();
 }, (req, res) => {
-    const SelectProductQuery = `SELECT * FROM Product`;
-    connection.query(SelectProductQuery, (err, rows) => {
-        const TheData = rows.map((x) => {
+    const Query = [
+        {
+            queryText: "SELECT * FROM Product",
+            values: []
+        },
+        {
+            queryText: "SELECT * FROM Layanan",
+            values: []
+        },
+        {
+            queryText: "SELECT * FROM Review",
+            values: []
+        }
+    ]
+    connection.runMultipleSelectQueries(Query)
+    .then((results) => {
+        const ProductsData = results[0].map((x) => {
+            x.description = textToHtml(x.description);
+            return x;
+        });
+        const LayananData = results[1].map((x) => {
             x.description = textToHtml(x.description);
             return x;
         });
