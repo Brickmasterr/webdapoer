@@ -7,6 +7,21 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 # ------------------------------------------------------------
+# SCHEMA DUMP FOR TABLE: Layanan
+# ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `Layanan` (
+  `layananId` varchar(50) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `show` int(11) NOT NULL DEFAULT 1,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `lastUpdate` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`layananId`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+# ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: Product
 # ------------------------------------------------------------
 
@@ -66,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `tokens` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_tokens_users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 44 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

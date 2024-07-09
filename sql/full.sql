@@ -7,6 +7,21 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 # ------------------------------------------------------------
+# SCHEMA DUMP FOR TABLE: Layanan
+# ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `Layanan` (
+  `layananId` varchar(50) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `show` int(11) NOT NULL DEFAULT 1,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `lastUpdate` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`layananId`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+# ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: Product
 # ------------------------------------------------------------
 
@@ -66,7 +81,32 @@ CREATE TABLE IF NOT EXISTS `tokens` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_tokens_users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 44 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+# ------------------------------------------------------------
+# DATA DUMP FOR TABLE: Layanan
+# ------------------------------------------------------------
+
+INSERT INTO
+  `Layanan` (
+    `layananId`,
+    `title`,
+    `description`,
+    `image`,
+    `show`,
+    `createdAt`,
+    `lastUpdate`
+  )
+VALUES
+  (
+    'e19ZS',
+    'asd',
+    'asd',
+    '/photoProducts/lPs5pcCooa.png',
+    1,
+    '2024-07-09 10:31:48',
+    '2024-07-09 10:31:48'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: Product
@@ -85,36 +125,14 @@ INSERT INTO
   )
 VALUES
   (
-    'cOnem',
-    'TESTING',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos.\r\n\r\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos.',
-    'pointblank_icon.png',
-    50000,
-    1,
-    '2024-06-24 21:07:09',
-    '2024-06-24 21:07:09'
-  );
-INSERT INTO
-  `Product` (
-    `productId`,
-    `title`,
-    `description`,
-    `image`,
-    `price`,
-    `show`,
-    `createdAt`,
-    `lastUpdate`
-  )
-VALUES
-  (
-    'dlS9F',
-    'test',
-    'test',
-    '/uploads/T21iWZHIb8.png',
+    'pKxBg',
+    'asd',
+    'asd',
+    '/photoProducts/fcb9D0DPQV.png',
     123,
     1,
-    '2024-06-24 22:11:22',
-    '2024-06-24 22:11:22'
+    '2024-07-09 10:28:25',
+    '2024-07-09 10:28:25'
   );
 INSERT INTO
   `Product` (
@@ -129,130 +147,28 @@ INSERT INTO
   )
 VALUES
   (
-    'JfPPv',
-    'testasd',
-    'testing update product and upload',
-    '/photoProducts/DTOx1dChfI.jpg',
+    'uY2QU',
+    'test',
+    'test',
+    '/photoProducts/yjO90TfIkA.png',
     123,
     1,
-    '2024-06-26 17:45:12',
-    '2024-06-26 17:45:12'
-  );
-INSERT INTO
-  `Product` (
-    `productId`,
-    `title`,
-    `description`,
-    `image`,
-    `price`,
-    `show`,
-    `createdAt`,
-    `lastUpdate`
-  )
-VALUES
-  (
-    'NzYWp',
-    'asdasd',
-    'product/uploadproduct/uploadproduct/upload',
-    'nostalgia-icon.png',
-    20000,
-    1,
-    '2024-06-24 21:29:22',
-    '2024-06-24 21:29:22'
-  );
-INSERT INTO
-  `Product` (
-    `productId`,
-    `title`,
-    `description`,
-    `image`,
-    `price`,
-    `show`,
-    `createdAt`,
-    `lastUpdate`
-  )
-VALUES
-  (
-    'VBDCL',
-    'TESTING 2',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos.\r\n\r\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos.',
-    'pointblank_icon.png',
-    100000,
-    1,
-    '2024-06-24 21:27:04',
-    '2024-06-24 21:27:04'
-  );
-INSERT INTO
-  `Product` (
-    `productId`,
-    `title`,
-    `description`,
-    `image`,
-    `price`,
-    `show`,
-    `createdAt`,
-    `lastUpdate`
-  )
-VALUES
-  (
-    'vjwqC',
-    'test',
-    'test',
-    '/uploads/BdJ4REYAMD.png',
-    12313,
-    1,
-    '2024-06-24 22:13:58',
-    '2024-06-24 22:13:58'
-  );
-INSERT INTO
-  `Product` (
-    `productId`,
-    `title`,
-    `description`,
-    `image`,
-    `price`,
-    `show`,
-    `createdAt`,
-    `lastUpdate`
-  )
-VALUES
-  (
-    'Vtz83',
-    'test 2',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos.',
-    '1.png',
-    12345,
-    1,
-    '2024-06-24 20:57:37',
-    '2024-06-24 20:57:37'
-  );
-INSERT INTO
-  `Product` (
-    `productId`,
-    `title`,
-    `description`,
-    `image`,
-    `price`,
-    `show`,
-    `createdAt`,
-    `lastUpdate`
-  )
-VALUES
-  (
-    'YcPxG',
-    'testas ',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, vel harum maxime dolorem perspiciatis similique consequuntur maiores, reiciendis enim adipisci officiis non ducimus dolore distinctio, sunt saepe ratione amet quos.',
-    'nostalgia-icon.png',
-    20000,
-    1,
-    '2024-06-24 21:28:19',
-    '2024-06-24 21:28:19'
+    '2024-07-09 10:01:56',
+    '2024-07-09 10:01:56'
   );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: Review
 # ------------------------------------------------------------
 
+INSERT INTO
+  `Review` (`reviewId`, `name`, `rate`, `message`)
+VALUES
+  ('3QAxt', 'test', 5, 'asdasdasdasdasd');
+INSERT INTO
+  `Review` (`reviewId`, `name`, `rate`, `message`)
+VALUES
+  ('8VfVm', 'test', 3, 'asdasdasdasd');
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: Users
@@ -978,6 +894,390 @@ VALUES
     '5863d8a9-bac5-49fd-9430-0e9e402a700e',
     '2024-06-27 17:39:54',
     '2024-06-28 01:39:54'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    44,
+    'qwe21',
+    '5921d714-839e-40b0-9cc5-d1018eed96bd',
+    '2024-07-09 08:58:16',
+    '2024-07-09 16:58:16'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    45,
+    'qwe21',
+    '94fffc71-d41b-49a3-8411-848826c2d5cf',
+    '2024-07-09 09:31:02',
+    '2024-07-09 17:31:02'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    46,
+    'qwe21',
+    'eae4d21f-c376-4c5b-9743-d2a9b19ad57f',
+    '2024-07-09 09:43:50',
+    '2024-07-09 17:43:50'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    47,
+    'qwe21',
+    '746946f9-9e4d-4a12-9911-86fbf0c7f6c7',
+    '2024-07-09 09:48:04',
+    '2024-07-09 17:48:04'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    48,
+    'qwe21',
+    '3bfcc2a3-7c22-4978-9166-e140949542ca',
+    '2024-07-09 09:48:58',
+    '2024-07-09 17:48:58'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    49,
+    'qwe21',
+    '2dd7f64a-3139-475c-8597-7e3854d07f57',
+    '2024-07-09 09:56:59',
+    '2024-07-09 17:56:59'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    50,
+    'qwe21',
+    '1a46a8d2-d234-4a6c-b382-050bbc5e47cb',
+    '2024-07-09 09:57:31',
+    '2024-07-09 17:57:31'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    51,
+    'qwe21',
+    '1805b5ab-4a52-4cfc-9898-d21e683b0051',
+    '2024-07-09 09:59:19',
+    '2024-07-09 17:59:19'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    52,
+    'qwe21',
+    'fa98cfd9-fd42-4ab0-a0c9-b09f7d343a9d',
+    '2024-07-09 10:03:11',
+    '2024-07-09 18:03:11'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    53,
+    'qwe21',
+    'f3aecec8-4ccd-4391-b09b-6e6150a4148f',
+    '2024-07-09 10:06:50',
+    '2024-07-09 18:06:50'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    54,
+    'qwe21',
+    '97e997a1-41a2-459f-9f86-9334e94712cc',
+    '2024-07-09 10:17:15',
+    '2024-07-09 18:17:15'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    55,
+    'qwe21',
+    '23b3f4b0-881d-4c20-abd5-6d8f50a8e97a',
+    '2024-07-09 10:17:24',
+    '2024-07-09 18:17:24'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    56,
+    'qwe21',
+    '9d0360f0-94c2-4cd7-a17b-4f6908977cd2',
+    '2024-07-09 10:24:14',
+    '2024-07-09 18:24:14'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    57,
+    'qwe21',
+    '2e6a6def-bbb8-457e-92d0-7c372d43ef3c',
+    '2024-07-09 10:36:57',
+    '2024-07-09 18:36:57'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    58,
+    'qwe21',
+    'b83c7cde-c3c3-42f9-83a7-16060253999e',
+    '2024-07-09 10:38:41',
+    '2024-07-09 18:38:41'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    59,
+    'qwe21',
+    '4bbaefec-24af-42e3-84b2-5638f2a5cdc0',
+    '2024-07-09 10:43:57',
+    '2024-07-09 18:43:57'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    60,
+    'qwe21',
+    '05b5ffd2-f300-4bce-b1fd-ad76244fec0a',
+    '2024-07-09 10:46:47',
+    '2024-07-09 18:46:47'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    61,
+    'qwe21',
+    '7618ce5e-581d-4d84-befd-1706b9615b9f',
+    '2024-07-09 10:47:03',
+    '2024-07-09 18:47:03'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    62,
+    'qwe21',
+    'caa0fb8a-d6b0-4891-90e4-19f5b7fc4fbb',
+    '2024-07-09 10:53:23',
+    '2024-07-09 18:53:23'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    63,
+    'qwe21',
+    'ea22b267-4edb-4c4e-b5d7-dd965de8a1d1',
+    '2024-07-09 10:54:18',
+    '2024-07-09 18:54:18'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    64,
+    'qwe21',
+    '1263d5c3-fbda-4c35-b68c-c08b75c80f60',
+    '2024-07-09 10:55:57',
+    '2024-07-09 18:55:57'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    65,
+    'qwe21',
+    '1d539a4f-24c0-4ef2-ad5d-10368618dfd5',
+    '2024-07-09 11:01:07',
+    '2024-07-09 19:01:07'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    66,
+    'qwe21',
+    '68c7a750-0756-4b3b-8ccc-e43e5b33ce69',
+    '2024-07-09 11:01:26',
+    '2024-07-09 19:01:26'
+  );
+INSERT INTO
+  `tokens` (
+    `id`,
+    `user_id`,
+    `token`,
+    `created_at`,
+    `expiration_time`
+  )
+VALUES
+  (
+    67,
+    'qwe21',
+    'e8c44781-0950-44a4-a904-73b740685cbc',
+    '2024-07-09 11:03:06',
+    '2024-07-09 19:03:06'
   );
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
