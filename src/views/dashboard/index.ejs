@@ -160,7 +160,7 @@
                                 <td class="text-wrap">${product.description}</td>
                                 <td><img style="border-radius: 0;" src="${product.image}" alt="product image"></td>
                                 <td>
-                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${product.productId}')"
+                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${product.productId}', 'product')"
                                     style="width: 100px;">
                                      Danger <i class="fa fa-trash-o btn-icon-append"></i>
                                   </button>
@@ -263,6 +263,66 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
+                      <h4 class="card-title mb-sm-0">Layanan</h4>
+                    </div>
+                    <div class="table-responsive border rounded p-1">
+                      <table class="table" id="product-list">
+                        <thead>
+                          <tr>
+                            <th class="font-weight-bold">ID</th>
+                            <th class="font-weight-bold">Nama</th>
+                            <th class="font-weight-bold">Rating</th>
+                            <th class="font-weight-bold">Rating</th>
+                            <th class="font-weight-bold">Message</th>
+                            <th class="font-weight-bold">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%-
+                            REVIEW.map((review, index) => {
+                              return `
+                              <tr>
+                                <td>${review.reviewId}</td>
+                                <td>${review.name}</td>
+                                <td>${review.rate}</td>
+                                <td class="rating">${review.rating}</td>
+                                <td class="text-wrap">${review.message}</td>
+                                <td>
+                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${review.layananId}', 'layanan')"
+                                    style="width: 100px;">
+                                     Danger <i class="fa fa-trash-o btn-icon-append"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                              `
+                            }).join('')
+                          %>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- <div class="d-flex mt-4 flex-wrap align-items-center">
+                      <p class="text-muted mb-sm-0">Showing 1 to 10 of 57 entries</p>
+                      <nav class="ms-auto">
+                        <ul class="pagination separated pagination-info mb-sm-0">
+                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                          <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                          <li class="page-item"><a href="#" class="page-link">2</a></li>
+                          <li class="page-item"><a href="#" class="page-link">3</a></li>
+                          <li class="page-item"><a href="#" class="page-link">4</a></li>
+                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                        </ul>
+                      </nav>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- REVIEW -->
+            <!-- <div class="row">
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-sm-flex align-items-center mb-4">
                       <h4 class="card-title mb-sm-0">Review</h4>
                       <a href="#" class="text-dark ms-auto mb-3 mb-sm-0"> View all Review</a>
                     </div>
@@ -346,7 +406,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
@@ -360,6 +420,7 @@
 
             <!-- Quick Action -->
             <%- include('../block/modal.ejs') %>
+            <%- include('../block/modal/addLayanan.ejs') %>
         </div>
         <!-- main-panel ends -->
       </div>
@@ -414,7 +475,7 @@
         });
      </script>
      <script>
-      function DeleteConfirmation(ProductId) {
+      function DeleteConfirmation(ProductId, theType) {
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
@@ -425,7 +486,7 @@
           confirmButtonText: "Yes, delete it!"
         }).then((result) => {
           if (result.isConfirmed) {
-            fetch(`/dashboard/deleteproduct?productId=${ProductId}`, {
+            fetch(`/dashboard/delete${theType}?${theType}Id=${ProductId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
