@@ -117,13 +117,13 @@ function safeHtml(text) {
     // Replace newlines with <br> tags
     const html = escapedText.replace(/\n/g, '<br>');
 
-    return html;
+    return html ?? '';
 }
 
 const textToHtml = (text) => {
     // Escape HTML characters to prevent XSS
     const escapeHtml = (unsafe) => {
-      return unsafe
+      return unsafe ?? ''
         // .replace(/&/g, "&amp;")
         // .replace(/</g, "&lt;")
         // .replace(/>/g, "&gt;")
@@ -138,7 +138,8 @@ const textToHtml = (text) => {
     const html = escapedText.replace(/(\r\n|\n|\r)/g, '<br>');
 
     // Wrap the entire text in <p> tags
-    return `<p>${html}</p>`;
+    // return `<p>${html}</p>`;
+    return html ?? '';
 };
 
 app.get('/', (req, res) => {
