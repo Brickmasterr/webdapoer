@@ -199,10 +199,10 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Layanan</h4>
+                      <h4 class="card-title mb-sm-0">List Layanan</h4>
                     </div>
                     <div class="table-responsive border rounded p-1">
-                      <table class="table" id="product-list">
+                      <table class="table" id="layanan-list">
                         <thead>
                           <tr>
                             <th class="font-weight-bold">ID</th>
@@ -220,16 +220,16 @@
                                 <td>${layanan.layananId}</td>
                                 <td>${layanan.title}</td>
                                 <td class="text-wrap">${layanan.description}</td>
-                                <td><img style="border-radius: 0;width: 25rem; height: 25rem;" src="${layanan.image}" alt="layanan image"></td>
+                                <td><img style="border-radius: 0;min-width: 15rem; min-height: 15rem;max-width: 25rem; max-height: 25rem;" src="${layanan.image}" alt="layanan image"></td>
                                 <td>
                                   <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${layanan.layananId}', 'layanan')"
                                     style="width: 100px;">
-                                     Danger <i class="fa fa-trash-o btn-icon-append"></i>
+                                     Hapus <i class="fa fa-trash-o btn-icon-append"></i>
                                   </button>
                                   <br>
                                   <button type="button" class="btn btn-dark btn-icon-text btn-sm" onclick="location.href='/dashboard/layanan/${layanan.productId}'"
                                     style="width: 100px; margin-top: 5px;">
-                                     Edit <i class="fa fa-edit btn-icon-append"></i>
+                                     Ubah <i class="fa fa-edit btn-icon-append"></i>
                                   </button>
                                 </td>
                               </tr>
