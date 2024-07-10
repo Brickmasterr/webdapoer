@@ -647,8 +647,20 @@ app.get('/pages/*', (req, res, next) => {
     }
 });
 
+// Login
 app.get('/login', (req, res) => {
     res.render('login');
+});
+
+// Logout
+app.get('/logout', (req, res) => {
+    req.logout(() => { });
+    res.redirect('/');
+});
+
+app.post('/logout', (req, res) => {
+    req.logout(() => { });
+    res.redirect('/');
 });
 
 app.post(
