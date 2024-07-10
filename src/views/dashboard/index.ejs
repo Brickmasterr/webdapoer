@@ -262,16 +262,16 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Layanan</h4>
+                      <h4 class="card-title mb-sm-0">List Review</h4>
                     </div>
                     <div class="table-responsive border rounded p-1">
-                      <table class="table" id="product-list">
+                      <table class="table" id="review-list">
                         <thead>
                           <tr>
                             <th class="font-weight-bold">ID</th>
                             <th class="font-weight-bold">Nama</th>
                             <th class="font-weight-bold">Rating</th>
-                            <th class="font-weight-bold">Rating</th>
+                            <th class="font-weight-bold"></th>
                             <th class="font-weight-bold">Message</th>
                             <th class="font-weight-bold">Action</th>
                           </tr>
@@ -284,12 +284,16 @@
                                 <td>${review.reviewId}</td>
                                 <td>${review.name}</td>
                                 <td>${review.rate}</td>
-                                <td class="rating">${review.rating}</td>
+                                <td>
+                                  <div class="rating" style="color: var(--yellow)">
+                                    ${review.rating}
+                                  </div>
+                                </td>
                                 <td class="text-wrap">${review.message}</td>
                                 <td>
-                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${review.layananId}', 'layanan')"
+                                  <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${review.reviewId}', 'review')"
                                     style="width: 100px;">
-                                     Danger <i class="fa fa-trash-o btn-icon-append"></i>
+                                     Hapus <i class="fa fa-trash-o btn-icon-append"></i>
                                   </button>
                                 </td>
                               </tr>
