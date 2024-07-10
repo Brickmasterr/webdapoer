@@ -511,13 +511,13 @@
 
       function DeleteConfirmation(ProductId, theType) {
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: `Ingin menghapus data ${theType ? toTitleCase(theType) : ""}?`,
+          text: "Data ini akan terhapus secara permanen!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+          confirmButtonText: "Ya, hapus!"
         }).then((result) => {
           if (result.isConfirmed) {
             fetch(`/dashboard/delete${theType}?${theType}Id=${ProductId}`, {
@@ -526,7 +526,7 @@
                 .then(response => response.json())
                 .then((data) => {
                   Swal.fire({
-                    title: "Deleted!",
+                    title: "Berhasil Terhapus!",
                     text: data.message,
                     icon: "success"
                   }).then((res) => {
