@@ -429,6 +429,60 @@ app.post(
 );
 
 app.post(
+    '/dashboard/updatelayanan',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to edit layanan`,
+                success: false,
+                error: "You must logged in to edit layanan"
+            });
+            return
+        }
+
+        const LayanaanId = req.query.layananId;
+        if (!LayanaanId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `The layanan id doesn't exist`,
+                success: false,
+                error: "The layanan id doesn't exist"
+            });
+            return
+        }
+
+        const { productName, productDescription, productImage, productImageHidden } = req.body
+
+        console.log('THE LAYANAN IMAGE!', productImageHidden, productImage);
+
+        let LayananDetail = {
+            title: productName,
+            description: productDescription,
+            show: 1
+        }
+
+        if (productImageHidden || productImage) {
+            LayananDetail.image = productImageHidden ?? productImage;
+        }
+
+        const InsertProductQuery = `UPDATE Layanan SET ? WHERE layananId = ?`;
+        connection.query(InsertProductQuery, [LayananDetail, LayanaanId], (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
+app.post(
     '/dashboard/deletelayanan',
     async (req, res) => {
         if (!req.isAuthenticated()) {
