@@ -685,6 +685,34 @@ app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
     });
 });
 
+app.get('/dashboard/layanan/:id', ensureLoggedIn, (req, res) => {
+    const ProductId = req.params.id;
+    if (!ProductId) {
+        res.status(404);
+        res.sendFile(join(__dirname, `views/pages/error-404.html`));
+        return;
+    }
+
+    const SelectProductQuery = `SELECT * FROM Layanan WHERE layananId = ?`
+    connection.query(SelectProductQuery, ProductId, (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(404);
+            res.sendFile(join(__dirname, `views/pages/error-404.html`));
+        } else {
+            const TheData = rows.map((x) => {
+                x.description = safeHtml(x.description);
+                return x
+            })
+            res.status(200);
+            res.render('dashboard/layanan', {
+                user: req.user,
+                LayananData: TheData[0]
+            });
+        }
+    });
+});
+
 app.get('/pages/*', (req, res, next) => {
     if (req.isAuthenticated()) {
         ensurePassword(req, res, next)
