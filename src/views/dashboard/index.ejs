@@ -468,9 +468,38 @@
           "language": {
             search: ""
           },
-          "columnDefs": [
-                { "width": "60%", "targets": 3 },
-            ]
+          responsive: true,
+          // "columnDefs": [
+          //       { "width": "60%", "targets": 3 },
+          //   ]
+        });
+        $('#layanan-list').DataTable({
+          "autoWidth": true,  // Disable automatic column width calculation
+          "aLengthMenu": [
+            [5, 10, 15, -1],
+            [5, 10, 15, "All"]
+          ],
+          "iDisplayLength": 5,
+          "language": {
+            search: ""
+          },
+          // "columnDefs": [
+          //       { "width": "60%", "targets": 3 },
+          //   ]
+        });
+        $('#review-list').DataTable({
+          "autoWidth": true,  // Disable automatic column width calculation
+          "aLengthMenu": [
+            [5, 10, 15, -1],
+            [5, 10, 15, "All"]
+          ],
+          "iDisplayLength": 5,
+          "language": {
+            search: ""
+          },
+          // "columnDefs": [
+          //       { "width": "60%", "targets": 3 },
+          //   ]
         });
      </script>
      <script>
