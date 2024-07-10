@@ -6,6 +6,7 @@ const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 const { join, extname } = require('node:path');
 const multer = require('multer');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
@@ -72,6 +73,8 @@ const ensureLoggedIn = async function (req, res, next) {
     }
 }
 
+// Use the CORS middleware
+app.use(cors());
 // Cokie parser middleware
 app.use(cookieParser());
 
