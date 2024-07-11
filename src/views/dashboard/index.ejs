@@ -146,7 +146,6 @@
                           <tr>
                             <th class="font-weight-bold">ID</th>
                             <th class="font-weight-bold">Title</th>
-                            <th class="font-weight-bold">Price</th>
                             <th class="font-weight-bold">Description</th>
                             <th class="font-weight-bold">Image</th>
                             <th class="font-weight-bold">Action</th>
@@ -159,7 +158,6 @@
                               <tr>
                                 <td>${product.productId}</td>
                                 <td>${product.title}</td>
-                                <td>${product.price}</td>
                                 <td class="text-wrap">${product.description}</td>
                                 <td><img style="border-radius: 0;min-width: 15rem; min-height: 15rem;max-width: 25rem; max-height: 25rem;" src="${product.image}" alt="product image"></td>
                                 <td>
@@ -211,7 +209,6 @@
                           <tr>
                             <th class="font-weight-bold">ID</th>
                             <th class="font-weight-bold">Title</th>
-                            <th class="font-weight-bold">Description</th>
                             <th class="font-weight-bold">Image</th>
                             <th class="font-weight-bold">Action</th>
                           </tr>
@@ -223,7 +220,6 @@
                               <tr>
                                 <td>${layanan.layananId}</td>
                                 <td>${layanan.title}</td>
-                                <td class="text-wrap">${layanan.description}</td>
                                 <td><img style="border-radius: 0;min-width: 15rem; min-height: 15rem;max-width: 25rem; max-height: 25rem;" src="${layanan.image}" alt="layanan image"></td>
                                 <td>
                                   <button type="button" class="btn btn-danger btn-icon-text btn-sm" onclick="DeleteConfirmation('${layanan.layananId}', 'layanan')"
