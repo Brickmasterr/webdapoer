@@ -17,11 +17,11 @@ node_modules/
 .env
 package-lock.json
 server-logs/*.json
-photoProducts/*.gif
-photoProducts/*.png
-photoProducts/*.jpg
-photoProducts/*.jpeg
-photoProducts/*.JPG
-photoProducts/*.PNG
-photoProducts/*.GIF
-photoProducts/*.JPEG
+# photoProducts/*.gif
+# photoProducts/*.png
+# photoProducts/*.jpg
+# photoProducts/*.jpeg
+# photoProducts/*.JPG
+# photoProducts/*.PNG
+# photoProducts/*.GIF
+# photoProducts/*.JPEG
