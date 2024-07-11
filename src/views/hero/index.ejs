@@ -81,8 +81,10 @@
             <h3 class="pemesanan1">PEMESANAN MINIMAL H-2</h3>
 
             <div class="services__container  bd-grid">
-                <div class="services__content">
-                    <img src="/assets/hero/img/snack.jpg" class="about__img" alt="">
+                <%- PRODUCTS.map((product, index)=> {
+                    return `
+                    <div class="services__content">
+                        <img src="${product.image}" class="about__img" alt="">
 
                     </svg>
                     <h3 class="services__title">Snack Box</h3>
