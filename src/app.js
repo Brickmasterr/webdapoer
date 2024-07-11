@@ -940,6 +940,21 @@ app.get('/dashboard/product/:id', ensureLoggedIn, (req, res) => {
     });
 });
 
+app.get('/dashboard/layanan', ensureLoggedIn, (req, res) => {
+    const SelectProductQuery = `SELECT * FROM Layanan`;
+    connection.query(SelectProductQuery, (err, rows) => {
+        const TheData = rows.map((x) => {
+            x.description = textToHtml(x.description);
+            return x;
+        });
+
+        res.render('dashboard/list/layanan', {
+            user: req.user,
+            LAYANAN: TheData
+        });
+    });
+});
+
 app.get('/dashboard/layanan/:id', ensureLoggedIn, (req, res) => {
     const ProductId = req.params.id;
     if (!ProductId) {
@@ -965,6 +980,21 @@ app.get('/dashboard/layanan/:id', ensureLoggedIn, (req, res) => {
                 LayananData: TheData[0]
             });
         }
+    });
+});
+
+app.get('/dashboard/varian', ensureLoggedIn, (req, res) => {
+    const SelectProductQuery = `SELECT DetailVarian.*, la.title as varianName FROM DetailVarian LEFT JOIN Layanan la ON DetailVarian.layananId = la.layananId`;
+    connection.query(SelectProductQuery, (err, rows) => {
+        const TheData = rows.map((x) => {
+            x.description = textToHtml(x.description);
+            return x;
+        });
+
+        res.render('dashboard/list/varian', {
+            user: req.user,
+            VARIAN: TheData
+        });
     });
 });
 
