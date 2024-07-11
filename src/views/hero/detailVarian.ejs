@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/hero/img/favicon.ico" type="image/x-icon">
+
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="/assets/hero/css/styles2.css">
+
+    <title>Dapoer Barokah</title>
+</head>
+
+<body>
+    <a href="https://wa.me/6281284623668?text=Saya%20mau%20order" class="scrolltop" id="scroll-top">
+        <i class='bx bxl-whatsapp scrolltop__icon'></i>
+    </a>
+
+    <header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a href="#" class="nav__logo">Dapoer Barokah</a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link active-link">Detail Menu</a></li>
+
+                    <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
+                </ul>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+
+    <main class="l-main">
+
+        <section class="about section bd-container" id="about">
+            <%-
+                TextFormatted.map((varian, index) => {
+                    return varian
+                }).join('')
+            %>
+
+
+            <div class="about__data">
+                <span class="section-subtitle about__initial">Beberapa menu sayur yang kami sediakan :</span>
+                <%-
+                    VarianData.map((varian, index) => {
+                        return `<p class="about__description">${index+1}. ${varian.title} </p>`
+                    }).join('')
+                %>
+
+
+
+                <a href="https://wa.me/6281284623668?text=Saya%20mau%20order" class="button">Pesan Sekarang</a>
+            </div>
+        </section>
+
+
+
+
+
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <script src="assets/js/main2.js"></script>
+</body>
+
+</html>
