@@ -86,26 +86,13 @@
                     <div class="services__content">
                         <img src="${product.image}" class="about__img" alt="">
 
-                    </svg>
-                    <h3 class="services__title">Snack Box</h3>
-                    <p class="services__description">Cocok untuk Jumat Berkah, acara kantor, piknik, pengajian dan
-                        lain-lain.
-                    </p>
-                </div>
-
-                <div class="services__content">
-                    <img src="/assets/hero/img/nasibox.jpg" class="about__img" alt="">
-
-                    <h3 class="services__title">Nasi Box</h3>
-                    <p class="services__description">Cocok untuk makan siang, acara kantor, keluarga dan reuni.
-                    </p>
-                </div>
-
-                <div class="services__content">
-                    <img src="/assets/hero/img/jumatberkah.jpg" class="about__img" alt="">
-                    <h3 class="services__title">Jumat Berkah</h3>
-                    <p class="services__description">Momen berbagi rezeki.</p>
-                </div>
+                        </svg>
+                        <h3 class="services__title">${product.title}</h3>
+                        <p class="services__description">${product.description}</p>
+                    </div>
+                    `
+                    }).join('')
+                    %>
             </div>
         </section>
 
@@ -114,31 +101,19 @@
             <h2 class="section-title">Varian Lauk dan sayur</h2>
 
             <div class="menu__container bd-grid">
-                <div class="menu__content">
-                    <img src="/assets/hero/img/lauk1.png" alt="" class="menu__img">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                    <h3 class="menu__name">Varian Sayur</h3>
-                    <span class="menu__detail">7 Tersedia</span>
-                    <span class="menu__preci"></span>
-                    <a href="/detail?menu=1" class="button menu__button"><i class='bx bx-list-ul'></i></a>
-                </div>
-
-                <div class="menu__content">
-                    <img src="/assets/hero/img/lauk2.png" alt="" class="menu__img">
-                    <h3 class="menu__name">Varian lauk</h3>
-                    <span class="menu__detail">5 Tersedia</span>
-                    <span class="menu__preci"></span>
-                    <a href="/detail?menu=2" class="button menu__button"><i class='bx bx-list-ul'></i></a>
-                </div>
-
-                <div class="menu__content">
-                    <img src="/assets/hero/img/lauk3.png" alt="" class="menu__img">
-                    <h3 class="menu__name">Varian Snack</h3>
-                    <span class="menu__detail">5 Tersedia</span>
-                    <span class="menu__preci"></span>
-                    <a href="/detail?menu=3" class="button menu__button"><i class='bx bx-list-ul'></i></a>
-                </div>
-
+                <%- LAYANAN.map((layanan, index)=> {
+                    return `
+                    <div class="menu__content">
+                        <img src="${layanan.image}" alt="" class="menu__img">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <h3 class="menu__name">${layanan.title}</h3>
+                        <span class="menu__detail">${layanan.count} Tersedia</span>
+                        <span class="menu__preci"></span>
+                        <a href="/detail?menu=${layanan.layananId}" class="button menu__button"><i class='bx bx-list-ul'></i></a>
+                    </div>
+                    `
+                    }).join('')
+                %>
             </div>
         </section>
 
