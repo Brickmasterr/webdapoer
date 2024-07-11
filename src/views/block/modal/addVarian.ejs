@@ -1,0 +1,189 @@
+<div class="modal fade" id="modalVarian" tabindex="-1" role="dialog" aria-labelledby="modalVarianLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVarianLabel">Add New Varian</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="color: black;">
+                <form id="varianForm" action="/dashboard/addvarian" method="POST">
+                    <div class="form-group">
+                        <label for="product-name" class="col-form-label">Nama Varian:</label>
+                        <input type="text" name="varianName" class="form-control" id="product-name"
+                            style="color: black;">
+                    </div>
+                    <div class="form-group">
+                        <label for="varian">Varian</label>
+                        <select class="form-select" name="varian" id="varian" style="color: black;">
+                            <%-
+                                LAYANAN.map((layanan, index) => {
+                                    return `<option value="${layanan.layananId}">${layanan.title}</option>`
+                                })
+                            %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>File upload</label>
+                        <input type="file" id="file-upload_Varian" name="varianImage" class="file-upload-default"
+                            accept="image/*">
+                        <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"
+                                style="color: black;">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="card-title">Current Photo Product</h4>
+                        <img src="//placehold.it/100" id="photoProductView_Varian" width="80%" height="80%" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Include jQuery from CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function ConfirmationVarian(cb, preConfirmFunction) {
+        Swal.fire({
+            title: "Apakah sudah benar",
+            text: "Data ini akan di simpan!",
+            icon: "warning",
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            customClass: {
+                confirmButton: 'btn btn-primary btn-lg mr-2',
+                cancelButton: 'btn btn-danger btn-lg',
+                loader: 'custom-loader',
+            },
+            preConfirm: preConfirmFunction,
+            allowOutsideClick: () => !Swal.isLoading(),
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm"
+        }).then((result) => {
+            cb(result);
+        });
+    }
+
+    $(document).ready(function () {
+        const ProductPhotoView = $("#photoProductView_Varian");
+        const fileInput = $('#file-upload_Varian');
+        const formData = new FormData();
+
+        // Add an event listener to trigger the file upload when a file is selected
+        fileInput.on('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    ProductPhotoView.attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+            formData.append('productImage', file);
+        });
+
+        // var form = $('#varianForm');
+
+        // form.on('submit', function (event) {
+        //     console.log(event.target);
+        //     event.preventDefault(); // Mencegah pengiriman form default
+        //     ConfirmationVarian((result) => {
+        //         if (result.isConfirmed) {
+        //             handleResponse(result.value);
+        //         }
+        //     }, async function () {
+        //         try {
+        //             const ttest = await testUpload_Varian(formData);
+        //             return ttest
+        //         } catch (error) {
+        //             Swal.showValidationMessage(`
+        //                 Request failed: ${error}
+        //             `);
+        //         }
+        //     });
+        // });
+
+        var form = document.getElementById('varianForm');
+
+        form.addEventListener('submit', function (event) {
+            console.log(event);
+            event.preventDefault(); // Mencegah pengiriman form default
+            ConfirmationVarian((result) => {
+                if (result.isConfirmed) {
+                    // console.log(result);
+                    // testUpload(); // Panggil fungsi yang diinginkan
+                    // console.log('test', fileInput.value);
+                    handleResponseVarian(result.value);
+                }
+            }, async function () {
+                try {
+                    const ttest = await testUpload_Varian(formData);
+                    console.log(ttest);
+                    return ttest
+                    // return false
+                } catch (error) {
+                    Swal.showValidationMessage(`
+                        Request failed: ${error}
+                    `);
+                }
+                // OutputFromTestUpload = ttest;
+            })
+        });
+
+        const handleResponseVarian = (data) => {
+            // console.log(fileInput.value);
+            if (data.ProductPicture) {
+                // console.log(data.ProductPicture);
+                // fileInput.accept = '*'
+                // fileInput.value = data.ProductPicture;
+                // Asumsikan response berisi nama file atau path file yang diunggah
+                let hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'varianImageHidden';
+                hiddenInput.value = data.ProductPicture; // Atau URL dari file yang diunggah
+
+                // Tambahkan input tersembunyi ke form
+                form.appendChild(hiddenInput);
+                // console.log(fileInput.value);
+                // Update the profile picture URL and set it as the src attribute of the image element
+                // profilePicture.src = data.profilePictureUrl;
+            }
+            // Setelah testUpload dijalankan, jika Anda ingin melanjutkan pengiriman form:
+            form.submit();
+        };
+
+        async function testUpload_Varian(theData) {
+            if (!theData.has('productImage')) {
+                throw new Error('File Upload must contain a file');
+            }
+
+            try {
+                const response = await fetch('/dashboard/upload', {
+                    method: 'POST',
+                    body: theData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+    });
+</script>
