@@ -56,7 +56,7 @@
                           <select class="form-select" name="varian" id="varian" style="color: black;">
                             <%- LAYANAN.map((layanan, index)=> {
                               return `<option value="${layanan.layananId}">${layanan.title}</option>`
-                              })
+                              }).join('')
                               %>
                           </select>
                         </div>
