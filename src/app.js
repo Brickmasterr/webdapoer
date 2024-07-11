@@ -251,7 +251,71 @@ app.get('/', (req, res) => {
 
 app.get('/detail', (req, res) => {
     if (!req.query?.menu) return res.redirect('/');
-    res.render(`hero/index${parseInt(req.query.menu) + 1}`);
+    // res.render(`hero/index${parseInt(req.query.menu) + 1}`);
+
+    const SelectQuery = `SELECT * FROM DetailVarian WHERE layananId = ?`;
+    connection.query(SelectQuery, req.query.menu, (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(500);
+            // res.redirect('/dashboard');
+        } else {
+            const TextFormatted = [];
+            let indexChecker = 0;
+            let rawText = ''
+            for (let index = 0; index < rows.length; index++) {
+                indexChecker++
+                const element = rows[index];
+
+                if (indexChecker <= 1 && index == rows.length - 1) {
+                    rawText += `
+                        <div class="about__container bd-grid">
+                            <img src="${element.image}" alt="" class="about__img">
+                            <p class="about__description1">${element.title}</p>
+
+                            <img src="/assets/hero/img/13.png" alt="" class="about__img">
+                            <p class="about__description1">Bebas Request</p>
+                        </div>
+                    `
+                } else if (indexChecker <= 1) {
+                    rawText += `
+                        <div class="about__container bd-grid">
+                            <img src="${element.image}" alt="" class="about__img">
+                            <p class="about__description1">${element.title}</p>
+                    `
+                } else {
+                    rawText += `
+                            <img src="${element.image}" alt="" class="about__img">
+                            <p class="about__description1">${element.title}</p>
+                        </div>
+                    `
+                }
+                if (indexChecker >= 2 || index == rows.length-1) {
+                    if (indexChecker >= 2) indexChecker = 0;
+                    TextFormatted.push(rawText);
+                    rawText = '';
+                };
+            }
+
+            if (indexChecker == 0) {
+                console.log('bebas request');
+                TextFormatted.push(`
+                    <div class="about__container bd-grid">
+                        <img src="/assets/hero/img/13.png" alt="" class="about__img">
+                        <p class="about__description1">Bebas Request</p>
+
+                        <img src="" alt="" class="about__img">
+                        <p class="about__description1"></p>
+                    </div>
+                    `)
+            }
+
+            res.status(200).render(`hero/detailVarian`, {
+                TextFormatted,
+                VarianData: rows
+            });
+        }
+    });
 })
 
 app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
