@@ -911,6 +911,42 @@ app.get('/dashboard/layanan/:id', ensureLoggedIn, (req, res) => {
     });
 });
 
+app.get('/dashboard/varian/:id', ensureLoggedIn, (req, res) => {
+    const ProductId = req.params.id;
+    if (!ProductId) {
+        res.status(404);
+        res.sendFile(join(__dirname, `views/pages/error-404.html`));
+        return;
+    }
+
+    const Query = [
+        {
+            queryText: "SELECT * FROM DetailVarian WHERE varianId = ?",
+            values: [ProductId]
+        },
+        {
+            queryText: "SELECT layananId, title FROM Layanan",
+            values: []
+        },
+    ]
+    connection.runMultipleSelectQueries(Query)
+    .then((results) => {
+        const VarianData = results[0]
+        const LayananData = results[1]
+        res.status(200);
+        res.render('dashboard/varian', {
+            user: req.user,
+            LAYANAN: LayananData,
+            VarianData: VarianData[0]
+        });
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(404);
+        res.sendFile(join(__dirname, `views/pages/samples/error-404.html`));
+    })
+});
+
 app.get('/pages/*', (req, res, next) => {
     if (req.isAuthenticated()) {
         ensurePassword(req, res, next)
