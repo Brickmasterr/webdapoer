@@ -905,7 +905,7 @@ app.get('/dashboard/product', ensureLoggedIn, (req, res) => {
             return x;
         });
 
-        res.render('dashboard/productList', {
+        res.render('dashboard/list/product', {
             user: req.user,
             PRODUCTS: TheData
         });
