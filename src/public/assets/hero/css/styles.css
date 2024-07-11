@@ -676,7 +676,7 @@ form{
   }
   .contactForm{
       grid-template-columns: 1fr 1fr;
-  }   
+  }
 
   .contactMethod{
       flex-direction: row;
@@ -864,4 +864,10 @@ textarea {
 }
 .btn-group .btn.cancel:hover {
 	background: var(--light);
+}
+
+.pemesanan1 {
+  color: #FF2E63;
+  text-align: center;
+  size: 18px;
 }
