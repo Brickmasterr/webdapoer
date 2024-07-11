@@ -767,6 +767,60 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/updatevarian',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to edit varian`,
+                success: false,
+                error: "You must logged in to edit varian"
+            });
+            return
+        }
+
+        const varianId = req.query.varianId;
+        if (!varianId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `The varian id doesn't exist`,
+                success: false,
+                error: "The varian id doesn't exist"
+            });
+            return
+        }
+
+        const { productName, varian, productImage, productImageHidden } = req.body
+
+        console.log('THE LAYANAN IMAGE!', productImageHidden, productImage);
+
+        let LayananDetail = {
+            title: productName,
+            layananId: varian,
+            show: 1
+        }
+
+        if (productImageHidden || productImage) {
+            LayananDetail.image = productImageHidden ?? productImage;
+        }
+
+        const InsertProductQuery = `UPDATE DetailVarian SET ? WHERE varianId = ?`;
+        connection.query(InsertProductQuery, [LayananDetail, varianId], (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
