@@ -821,6 +821,63 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/deletevarian',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to delete varian`,
+                success: false,
+                error: "You must logged in to delete varian"
+            });
+            return
+        }
+
+        const VarianId = req.query.varianId;
+        if (!VarianId) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `The varian id doesn't exist`,
+                success: false,
+                error: "The varian id doesn't exist"
+            });
+            return
+        }
+
+        const InsertProductQuery = `DELETE FROM DetailVarian WHERE varianId = ?`;
+        connection.query(InsertProductQuery, [VarianId], (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+                if (req.body) {
+                    res.json({
+                        status: 500,
+                        message: `Varian with ID = ${VarianId} failed to delete`,
+                        success: false,
+                        error: true
+                    })
+                }
+            } else {
+                res.status(200);
+                if (!req.body) {
+                    res.redirect('/dashboard');
+                } else {
+                    res.json({
+                        status: 200,
+                        message: `Varian with ID = ${VarianId} has been deleted`,
+                        success: true,
+                        error: false
+                    })
+                }
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
