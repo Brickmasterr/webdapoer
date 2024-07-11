@@ -405,14 +405,14 @@ app.post(
             return
         }
 
-        const { productName, productDescription, productPrice, productImage, productImageHidden } = req.body
+        const { productName, productDescription, productImage, productImageHidden } = req.body
 
-        console.log('THE PRODUCT IMAGE!', productImageHidden, productImage);
+        // console.log('THE PRODUCT IMAGE!', productImageHidden, productImage);
 
         let ProductDetail = {
             title: productName,
             description: productDescription,
-            price: parseInt(productPrice),
+            price: parseInt(0),
             show: 1
         }
 
@@ -420,7 +420,7 @@ app.post(
             ProductDetail.image = productImageHidden ?? productImage;
         }
 
-        console.log(req.body);
+        // console.log(req.body);
 
         const InsertProductQuery = `UPDATE Product SET ? WHERE productId = ?`;
         connection.query(InsertProductQuery, [ProductDetail, ProductId], (err) => {
