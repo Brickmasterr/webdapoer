@@ -143,14 +143,14 @@
     const ProductForm = document.getElementById("productForm");
     const ProductName = document.getElementById("product-name");
     const ProductDescription = document.getElementById("description");
-    const ProductPrice = document.getElementById("price");
+    // const ProductPrice = document.getElementById("price");
     const ProductPhoto = document.getElementById("productImage");
     const ProductPhotoView = document.getElementById("photoProductView");
 
     ProductForm.action = `/dashboard/updateproduct?productId=${ProductData.productId}`
     ProductName.value = ProductData.title;
     ProductDescription.value = unsafetoHtml(ProductData.description);
-    ProductPrice.value = ProductData.price;
+    // ProductPrice.value = ProductData.price;
     ProductPhoto.value = ProductData.image;
     ProductPhotoView.src = ProductData.image;
   </script>
