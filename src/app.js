@@ -723,6 +723,44 @@ app.post(
     }
 );
 
+app.post(
+    '/dashboard/addvarian',
+    async (req, res) => {
+        if (!req.isAuthenticated()) {
+            res.status(400);
+            res.json({
+                status: 400,
+                message: `You must logged in to add varian`,
+                success: false,
+                error: "You must logged in to add varian"
+            });
+            return
+        }
+
+        const { varianName, varian, varianImage, varianImageHidden } = req.body
+
+        let ProductDetail = {
+            varianId: GenerateUserId(5),
+            layananId: varian,
+            title: varianName,
+            image: varianImageHidden ?? varianImage,
+            show: 1
+        }
+
+        const InsertProductQuery = `INSERT INTO DetailVarian SET ?`;
+        connection.query(InsertProductQuery, ProductDetail, (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500);
+                // res.redirect('/dashboard');
+            } else {
+                res.status(200);
+                res.redirect('/dashboard');
+            }
+        });
+    }
+);
+
 // POST request to handle the profile picture upload
 app.post('/dashboard/upload', uploadMulter.single('productImage'), (req, res) => {
     if (req.file) {
