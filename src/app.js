@@ -146,7 +146,107 @@ const textToHtml = (text) => {
 };
 
 app.get('/', (req, res) => {
-    res.render('hero/index');
+    const Query = [
+        {
+            queryText: "SELECT * FROM Product",
+            values: []
+        },
+        {
+            queryText: "SELECT * FROM Layanan",
+            values: []
+        },
+        {
+            queryText: "SELECT layananId, varianId FROM DetailVarian",
+            values: []
+        }
+    ]
+    connection.runMultipleSelectQueries(Query)
+    .then((results) => {
+        const ProductsData = results[0].map((x) => {
+            x.description = textToHtml(x.description);
+            return x;
+        });
+
+        const LayananData = results[1].map((x) => {
+            x.count = results[2].filter(v => v.layananId == x.layananId).length;
+            x.description = textToHtml(x.description);
+            return x;
+        });
+
+        res.render('hero/index', {
+            user: req.user,
+            PRODUCTS: ProductsData,
+            LAYANAN: LayananData
+        });
+    })
+    .catch(e => {
+        const ProductsData = [
+            {
+              productId: 'ngBk5',
+              title: 'Snack Box',
+              description: 'Cocok untuk Jumat Berkah, acara kantor, piknik, pengajian dan lain-lain.',
+              image: '/photoProducts/pIRTAv6r8K.jpg',
+              price: 0,
+              show: 1,
+              createdAt: '2024-07-11T19:03:59.000Z',
+              lastUpdate: '2024-07-11T19:03:59.000Z'
+            },
+            {
+              productId: 'xMX6M',
+              title: 'Nasi Box',
+              description: 'Cocok untuk makan siang, acara kantor, keluarga dan reuni.',
+              image: '/photoProducts/F7ws8XyX8L.jpg',
+              price: 0,
+              show: 1,
+              createdAt: '2024-07-11T19:04:42.000Z',
+              lastUpdate: '2024-07-11T19:04:42.000Z'
+            },
+            {
+              productId: 'XoFkr',
+              title: 'Jumat Berkah',
+              description: 'Momen berbagi rezeki.',
+              image: '/photoProducts/rQagrTDqw3.jpg',
+              price: 0,
+              show: 1,
+              createdAt: '2024-07-11T19:05:26.000Z',
+              lastUpdate: '2024-07-11T19:05:26.000Z'
+            }
+        ];
+        const LayananData = [
+            {
+              layananId: '4Gy2B',
+              title: 'Varian Snack',
+              description: '',
+              image: '/photoProducts/aVPWwXW6Jr.png',
+              show: 1,
+              createdAt: '2024-07-11T19:12:49.000Z',
+              lastUpdate: '2024-07-11T19:12:49.000Z'
+            },
+            {
+              layananId: 'LWqJc',
+              title: 'Varian Sayur',
+              description: 'test',
+              image: '/photoProducts/uBpxP4TTTH.png',
+              show: 1,
+              createdAt: '2024-07-11T19:11:26.000Z',
+              lastUpdate: '2024-07-11T19:11:26.000Z'
+            },
+            {
+              layananId: 'oIHPC',
+              title: 'Varian Lauk',
+              description: '',
+              image: '/photoProducts/i3YT7vtqTl.png',
+              show: 1,
+              createdAt: '2024-07-11T19:11:58.000Z',
+              lastUpdate: '2024-07-11T19:11:58.000Z'
+            }
+        ];
+        res.render('hero/index', {
+            user: req.user,
+            PRODUCTS: ProductsData,
+            LAYANAN: LayananData
+        });
+    })
 })
 
 app.get('/detail', (req, res) => {
