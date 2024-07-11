@@ -271,6 +271,10 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
         {
             queryText: "SELECT * FROM Review",
             values: []
+        },
+        {
+            queryText: "SELECT DetailVarian.*, la.title as varianName FROM DetailVarian LEFT JOIN Layanan la ON DetailVarian.layananId = la.layananId",
+            values: []
         }
     ]
     connection.runMultipleSelectQueries(Query)
@@ -296,12 +300,14 @@ app.get('/dashboard', ensureLoggedIn, (req, res, next) => {
             x.message = textToHtml(x.message).replace('<p>', '').replace('</p>', '');
             return x;
         });
+        const VarianData = results[3]
 
         res.render('dashboard/index', {
             user: req.user,
             PRODUCTS: ProductsData,
             LAYANAN: LayananData,
-            REVIEW: ReviewData
+            REVIEW: ReviewData,
+            VARIAN: VarianData
         });
     })
     .catch((err) => {
