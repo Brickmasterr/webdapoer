@@ -88,4 +88,4 @@ For support, DM me on Discord `@brickmaster`.
 
 
 ## Lisensi:
-Proyek ini dilisensikan di bawah [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+Proyek ini dilisensikan di bawah [BSD 3-Clause License]([https://www.apache.org/licenses/LICENSE-2.0](https://opensource.org/license/bsd-3-clause)).
