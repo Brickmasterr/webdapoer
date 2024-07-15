@@ -83,7 +83,7 @@ app.use(session({
     genid: (req) => {
         return uuidv4(); // Generate unique session ID
     },
-    secret: 'webdapoer', // Change this to a secret key
+    secret: 'secret', // Change this to a secret key
     resave: false,
     saveUninitialized: true
 }));
